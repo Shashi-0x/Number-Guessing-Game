@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Guessing Game</title>
+    <style>
+         body {
+            font-family: Arial;
+            background: linear-gradient(135deg, purple, skyblue);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .game {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            width: 300px;
+        }
+
+        input {
+            padding: 10px;
+            width: 85%;
+            margin: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background: purple;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #result {
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="game">
+    <h2>🎯 Guess The Number</h2>
+
+    <input type="number" id="max" placeholder="Enter max number">
+    <button onclick="startGame()">Start Game</button>
+
+    <div id="play" hidden>
+        <input type="number" id="guess" placeholder="Guess the number">
+        <button onclick="checkGuess()">Guess</button>
+        <button onclick="quitGame()">Quit</button>
+    </div>
+
+    <p id="result">Start the game!</p>
+</div>
+    <script>
+         let random;
+        let max;
+
+        function startGame() {
+            max = Number(document.getElementById("max").value);
+
+            if (max < 1) {
+                document.getElementById("result").innerText = "Enter max number!";
+                return;
+            }
+
+            random = Math.floor(Math.random() * max) + 1;
+
+            document.getElementById("play").hidden = false;
+            document.getElementById("result").innerText = "Guess the number!";
+        }
+
+        function checkGuess() {
+            let guess = Number(document.getElementById("guess").value);
+
+            if (guess == random) {
+                document.getElementById("result").innerText =
+                    "You are right! Congrats! Number was " + random;
+            }
+            else if (guess < random) {
+                document.getElementById("result").innerText =
+                    "Your guess was too small, try again!";
+            }
+            else {
+                document.getElementById("result").innerText =
+                    "Your guess was too large, try again!";
+            }
+        }
+
+        function quitGame() {
+            document.getElementById("play").hidden = true;
+            document.getElementById("result").innerText = "User quit the game!";
+        }
+
+    </script>
+</body>
+</html>
